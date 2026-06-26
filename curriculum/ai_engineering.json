@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ai-001",
+    "topic": "Retrieval-Augmented Generation (RAG)",
+    "difficulty": "medium",
+    "estimated_minutes": 30,
+    "tags": ["rag", "llm"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "ai-002",
+    "topic": "Parameter-Efficient Fine-Tuning (LoRA)",
+    "difficulty": "hard",
+    "estimated_minutes": 35,
+    "tags": ["lora", "fine-tuning"],
+    "prerequisites": ["ai-001"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "ai-003",
+    "topic": "KV Cache Optimization in LLM Inference",
+    "difficulty": "hard",
+    "estimated_minutes": 40,
+    "tags": ["inference", "kv-cache"],
+    "prerequisites": ["ai-002"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  }
+]

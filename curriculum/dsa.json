@@ -1,0 +1,29 @@
+[
+  {
+    "id": "dsa-001",
+    "topic": "Two Sum (Hash Map Pattern)",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "tags": ["array", "hashmap"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "dsa-002",
+    "topic": "Valid Parentheses (Stack Pattern)",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "tags": ["stack", "string"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "dsa-003",
+    "topic": "LRU Cache (Doubly Linked List + Hash Map)",
+    "difficulty": "medium",
+    "estimated_minutes": 35,
+    "tags": ["design", "linkedlist"],
+    "prerequisites": ["dsa-001"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  }
+]

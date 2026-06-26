@@ -1,0 +1,15 @@
+services:
+  daily-prep-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: daily_ai_preparation_bot
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - TIMEZONE=Asia/Kolkata
+    volumes:
+      - ./data:/app/data
+      - ./backups:/app/backups
+      - ./logs:/app/logs

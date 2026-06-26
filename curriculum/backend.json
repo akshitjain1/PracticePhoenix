@@ -1,0 +1,29 @@
+[
+  {
+    "id": "back-001",
+    "topic": "FastAPI Async Architecture",
+    "difficulty": "medium",
+    "estimated_minutes": 25,
+    "tags": ["fastapi", "async"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "back-002",
+    "topic": "Database Connection Pooling",
+    "difficulty": "hard",
+    "estimated_minutes": 30,
+    "tags": ["postgres", "pooling"],
+    "prerequisites": ["back-001"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "back-003",
+    "topic": "Distributed Messaging with RabbitMQ",
+    "difficulty": "medium",
+    "estimated_minutes": 30,
+    "tags": ["queues", "rabbitmq"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  }
+]
