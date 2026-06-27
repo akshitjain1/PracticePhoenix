@@ -1,22 +1,21 @@
-# Daily AI Preparation Platform (GA v1.0.0)
+# Daily AI Preparation Platform (GA v1.0.0 / Serverless Edition)
 
-A containerized, production-grade automated daily preparation platform designed to deliver structured software engineering interview briefs, spaced repetitions, comprehensive study analytics, personalized mentoring advice, interaction telemetry, live diagnostic monitoring, automated hot SQLite backups, and adaptive Socratic interview practice (`/grill-me`) via Telegram.
+A serverless, production-grade automated daily preparation platform designed to deliver structured software engineering interview briefs, spaced repetitions, comprehensive study analytics, personalized mentoring advice, interaction telemetry, live diagnostic monitoring, automated hot SQLite backups, and adaptive Socratic interview practice (`/grill-me`) via Telegram.
 
 ## Overview
 
-The Daily AI Preparation Platform curates interview topics across core computer science domains (Operating Systems, DBMS, Computer Networks), Backend Engineering, AI Engineering, and Data Structures & Algorithms. It leverages advanced LLM reasoning (via Groq/Gemini) to generate comprehensive daily study briefs formatted cleanly for Telegram, backed by an automated spaced repetition, analytics, career coaching, interaction telemetry, fail-fast diagnostics, Docker containerization, and interactive interview practice engine.
+The Daily AI Preparation Platform curates interview topics across core computer science domains (Operating Systems, DBMS, Computer Networks), Backend Engineering, AI Engineering, and Data Structures & Algorithms. It leverages advanced LLM reasoning (via Groq/Gemini) to generate comprehensive daily study briefs formatted cleanly for Telegram, backed by an automated spaced repetition, analytics, career coaching, interaction telemetry, fail-fast diagnostics, GitHub Actions serverless workflows, Docker containerization, and interactive interview practice engine.
 
-## Key General Availability (v1.0.0) Features
+## Key Deployment & Operational Features
 
-- **Official GA Release**: Verified steady-state performance baselines (`<500ms` startup, `~70MB` RAM), failure injection trapping, and clean `.dockerignore` context optimization.
+- **Serverless Cloud Delivery**: Scheduled GitHub Actions workflow (`.github/workflows/daily_brief.yml`) running a dedicated standalone execution script (`run_daily.py`) and Telegram dispatcher (`TelegramSender`). Delivers daily preparation briefs at exact morning intervals without requiring 24/7 server polling or background scheduler daemons.
+- **Preserved Local Interactive Bot**: Full interactive Telegram polling application (`python -m app.main`) preserved for local debugging, Socratic interviews (`/grill-me`), knowledge searches (`/search`), and live system monitoring (`/health`).
 - **Repeatable Docker Containerization**: Multi-stage/slim `Dockerfile` and `docker-compose.yml` supporting persistent volume mounts for SQLite databases (`/app/data`), backups (`/app/backups`), and logs (`/app/logs`).
-- **Automated CI Validation**: Built-in GitHub Actions CI pipeline (`.github/workflows/ci.yml`) automatically executing dependency builds and 23 pytest unit tests on every push.
+- **Automated CI Validation**: Built-in GitHub Actions CI pipeline (`.github/workflows/ci.yml`) automatically executing dependency builds and 25 pytest unit tests on every push.
 - **Fail-Fast Startup Validation**: Automated `StartupDiagnosticsService` verifying environment variables, SQLite connectivity, curriculum stores, and disk write permissions before starting.
-- **Live Monitoring Endpoint**: `/health` command returning structured diagnostic health status across all active subsystems.
-- **Scheduled Job Idempotency**: Built-in duplicate brief prevention ensuring 07:00 IST morning broadcasts never send duplicate messages.
-- **Automated Hot Backups**: `BackupService` archiving SQLite databases with timestamped filenames and automated 14-backup retention cleanup.
+- **Scheduled Job Idempotency**: Built-in duplicate brief prevention ensuring morning broadcasts never send duplicate messages across serverless restarts.
 
-## Available Telegram Commands
+## Available Telegram Commands (Local Interactive Edition)
 
 ### System Health & Diagnostics
 - `/health` - Inspect live diagnostic status across database, AI gateway, scheduler, and repositories
@@ -46,8 +45,8 @@ The Daily AI Preparation Platform curates interview topics across core computer 
 - `/roadmap` - Estimated remaining lesson roadmap timeline
 
 ## Official Release Documentation Runbooks
+- [Production Deployment Guide](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/DEPLOYMENT.md) (Serverless GitHub Actions, Docker, systemd, NSSM)
 - [GA v1.0.0 Release Notes](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/RELEASE_NOTES_v1.0.0.md)
-- [Production Deployment Guide](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/DEPLOYMENT.md)
 - [Performance Benchmarks](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/PERFORMANCE.md)
 - [Troubleshooting Matrix](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/TROUBLESHOOTING.md)
 - [Production Operations Manual](file:///d:/Daily%20AI%20-powered%20Telegram%20bot/telegram-prep-bot/OPERATIONS.md)

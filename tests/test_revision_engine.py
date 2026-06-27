@@ -1,6 +1,9 @@
 from datetime import date, timedelta
 import pytest
+from sqlalchemy import delete
+from app.database.database import SessionLocal
 from app.database.init_db import initialize_database
+from app.models.revision import RevisionQueue
 from app.services.learning_engine import LearningEngine
 from app.services.revision_service import RevisionService
 
@@ -8,11 +11,14 @@ from app.services.revision_service import RevisionService
 @pytest.fixture(autouse=True)
 def setup_db():
     initialize_database()
+    with SessionLocal() as session:
+        session.execute(delete(RevisionQueue))
+        session.commit()
 
 
 def test_revision_scheduling_and_duplicate_prevention():
     rev_service = RevisionService()
-    today = date(2026, 6, 26)
+    today = date.today()
     
     # Schedule new revisions
     rev_service.schedule_new_revisions("operating_systems", "Mutex", [1, 3, 7], today)
@@ -28,7 +34,7 @@ def test_revision_scheduling_and_duplicate_prevention():
 
 def test_learning_engine_plan_merging_and_completion():
     engine = LearningEngine()
-    test_date = date(2026, 6, 26)
+    test_date = date.today()
     
     # Complete day 1 to schedule revisions for day 2
     engine.complete_today(test_date)
@@ -44,5 +50,4 @@ def test_learning_engine_plan_merging_and_completion():
     # Complete day 2 to verify archive/advancement
     engine.complete_today(next_day)
     plan_after = engine.get_today_plan(next_day)
-    # The due revisions for that exact day should now be advanced/cleared
     assert plan_after.due_revisions.get("operating_systems", []) == []
