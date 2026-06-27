@@ -1,83 +1,55 @@
 # Production Deployment Guide
 
-Follow these steps to deploy the production-hardened Daily AI Preparation Platform across Docker containerized environments, Linux systemd daemons, or Windows NSSM background services.
+Follow these steps to deploy the production-hardened Daily AI Preparation Platform across Serverless GitHub Actions workflows, Docker containerized environments, Linux systemd daemons, or Windows NSSM background services.
 
 ---
 
-## 1. Containerized Docker Deployment (Recommended)
+## 1. Serverless GitHub Actions Deployment (Recommended Cloud Edition)
 
-The platform includes a production-ready `Dockerfile` and `docker-compose.yml` configured for automatic volume mounting and timezone synchronization.
+The platform supports zero-server, zero-polling serverless execution via scheduled GitHub Actions workflows (`.github/workflows/daily_brief.yml`). This eliminates the need for 24/7 cloud hosting while guaranteeing exact 07:00 IST morning deliveries.
+
+### Setup Protocol
+1. Fork or push this repository to GitHub.
+2. Go to **Repository Settings** > **Secrets and variables** > **Actions**.
+3. Add the following repository secrets:
+   - `TELEGRAM_BOT_TOKEN`: Secret API token obtained from @BotFather
+   - `GROQ_API_KEY`: Fast cloud LLM inference gateway key
+   - `BROADCAST_CHAT_ID`: Target Telegram Chat ID or Channel ID for automated briefs
+4. The workflow runs automatically every day at `00:30 UTC` (`06:00 IST`). You can also manually trigger generation anytime via **Actions** > **Scheduled Daily Brief Delivery** > **Run workflow**.
+
+---
+
+## 2. Containerized Docker Deployment (Local Interactive Edition)
+
+For interactive bot commands (`/grill-me`, `/daily`, `/history`, `/search`), run the platform locally or on a VPS using Docker Compose.
 
 ### Execution Protocol
 ```bash
-# Clone repository and navigate to root
 git clone https://github.com/akshit/daily-ai-preparation-bot.git
 cd daily-ai-preparation-bot
 
-# Configure credentials
 cp .env.example .env
 # Edit .env with your TELEGRAM_BOT_TOKEN, GROQ_API_KEY, and BROADCAST_CHAT_ID
 
-# Build and start background container
 docker compose up -d --build
 ```
 
-### Storage Persistence Guarantee
-The `docker-compose.yml` specification mounts local host folders into container volume mount points:
-- `./data:/app/data` (SQLite database persistence)
-- `./backups:/app/backups` (Hot database backup archives)
-- `./logs:/app/logs` (Structured Loguru rotating log files)
-
 ---
 
-## 2. Linux Server Deployment (Systemd Daemon)
+## 3. Linux Server Deployment (Systemd Daemon)
 
-For bare-metal or cloud Linux servers (Ubuntu/Debian/CentOS), configure a systemd background service.
-
-### Service File Creation (`/etc/systemd/system/daily-prep-bot.service`)
-```ini
-[Unit]
-Description=Daily AI Preparation Telegram Platform Daemon
-After=network.target
-
-[Service]
-Type=simple
-User=deploy
-WorkingDirectory=/opt/daily-ai-preparation-bot
-ExecStart=/opt/daily-ai-preparation-bot/.venv/bin/python -m app.main
-Restart=always
-RestartSec=5
-EnvironmentFile=/opt/daily-ai-preparation-bot/.env
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Daemon Activation
+For bare-metal Linux servers, configure a systemd background service:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now daily-prep-bot.service
-sudo systemctl status daily-prep-bot.service
 ```
 
 ---
 
-## 3. Windows Server Deployment (NSSM Service)
+## 4. Windows Server Deployment (NSSM Service)
 
-For Windows VPS environments, manage background execution via NSSM (Non-Sucking Service Manager).
-
-### NSSM Setup Commands
+For Windows VPS environments, manage background execution via NSSM:
 ```powershell
 nssm install DailyPrepBot "C:\deploy\daily-ai-preparation-bot\.venv\Scripts\python.exe" "-m app.main"
-nssm set DailyPrepBot AppDirectory "C:\deploy\daily-ai-preparation-bot"
-nssm set DailyPrepBot AppStdout "C:\deploy\daily-ai-preparation-bot\logs\service_output.log"
-nssm set DailyPrepBot AppStderr "C:\deploy\daily-ai-preparation-bot\logs\service_error.log"
 nssm start DailyPrepBot
 ```
-
----
-
-## 4. Locked Dependency Maintenance Protocol
-
-Platform dependencies are strictly locked inside `requirements.txt`.
-- **Update Protocol**: To upgrade packages safely, test locally inside `.venv`, verify the 20 pytest unit tests pass, and commit the updated `requirements.txt` lockfile. CI automation will automatically re-verify build stability.

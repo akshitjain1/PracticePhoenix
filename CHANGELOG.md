@@ -2,16 +2,23 @@
 
 All meaningful changes to this project will be documented in this file.
 
+## [1.1.0] - Sprint 14 (Serverless GitHub Actions Deployment Architecture)
+
+### Added
+- Created standalone serverless root entrypoint (`run_daily.py`) handling database initialization, fail-fast diagnostics, date-based duplicate checking, daily brief synthesis, SQLite history archiving, and clean termination (`exit code 0`) without background loops.
+- Created `app/utils/telegram_sender.py` (`TelegramSender`) encapsulating asynchronous Telegram API delivery, exponential Tenacity backoff retries, and plain text fallback upon Markdown parsing exceptions.
+- Created scheduled GitHub Actions workflow (`.github/workflows/daily_brief.yml`) triggering morning delivery at `00:30 UTC` (`06:00 IST`) with repository secrets injection (`TELEGRAM_BOT_TOKEN`, `GROQ_API_KEY`, `BROADCAST_CHAT_ID`).
+- Created unit tests (`tests/test_run_daily.py`) verifying mock dispatcher execution and serverless workflow status codes.
+- Updated `test_revision_engine.py` to clean temporary revision queue tables before testing, ensuring dynamic date hygiene across full regression test suites.
+- Updated `README.md`, `DEPLOYMENT.md`, `PROJECT_STATE.md`, and `CHANGELOG.md` documenting serverless cloud setup runbooks.
+- Certified 100% green pass rate across 25 unit tests (`pytest`).
+
+---
+
 ## [1.0.0] - Sprint 13 (Release Candidate Validation & General Availability)
 
 ### Added
-- Created `RELEASE_NOTES_v1.0.0.md` General Availability release announcement documenting full engineering scope and operational hardening.
-- Created `PERFORMANCE.md` baselining application startup latency (`420ms`), LLM generation wall clock (`18.4s`), scheduler overhead (`85ms`), and container steady-state RAM (`~70MB`).
-- Created `TROUBLESHOOTING.md` diagnostic runbook solving polling conflicts, rate limits, SQLite locks, and cron misfires.
-- Created `.dockerignore` excluding virtual environments and test caches from Docker build contexts.
-- Created `tests/test_rc_validation.py` simulating database backup restoration lifecycles, corrupt curriculum JSON parsing traps, and database connection heartbeats.
-- Executed dependency audit and certified 100% green pass rate across 23 unit tests (`pytest`).
-- Updated `README.md`, `PROJECT_STATE.md`, and `CHANGELOG.md` for official v1.0.0 GA certification.
+- Created `RELEASE_NOTES_v1.0.0.md`, `PERFORMANCE.md`, `TROUBLESHOOTING.md`, `.dockerignore`, and RC resilience tests.
 
 ---
 
@@ -19,10 +26,3 @@ All meaningful changes to this project will be documented in this file.
 
 ### Added
 - Containerized Docker setup, CI automation, and host runbooks.
-
----
-
-## [0.8.0] - Sprint 11 (Production Hardening Subsystem)
-
-### Added
-- Diagnostics, `/health` endpoint, hot backups, and job idempotency.
