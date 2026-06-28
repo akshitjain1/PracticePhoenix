@@ -6,7 +6,7 @@ Follow these steps to deploy the production-hardened Daily AI Preparation Platfo
 
 ## 1. Serverless GitHub Actions Deployment (Recommended Cloud Edition)
 
-The platform supports zero-server, zero-polling serverless execution via scheduled GitHub Actions workflows (`.github/workflows/daily_brief.yml`). This eliminates the need for 24/7 cloud hosting while guaranteeing exact 07:00 IST morning deliveries.
+The platform supports zero-server, zero-polling serverless execution via scheduled GitHub Actions workflows (`.github/workflows/daily_brief.yml`). This eliminates the need for 24/7 cloud hosting while guaranteeing exact 07:00 IST morning deliveries backed by automated message chunking (`<4000` chars) and structured JSON fallback resilience.
 
 ### Setup Protocol
 1. Fork or push this repository to GitHub.
