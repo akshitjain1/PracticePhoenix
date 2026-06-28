@@ -12,9 +12,11 @@ class CurriculumService:
         "dbms",
         "computer_networks",
         "linux",
+        "sql",
         "backend",
         "ai_engineering",
         "dsa",
+        "system_design",
         "interview_preparation"
     ]
 

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "sql-001",
+    "topic": "Window Functions & ROW_NUMBER vs RANK",
+    "difficulty": "medium",
+    "estimated_minutes": 20,
+    "tags": ["sql", "database", "analytics"],
+    "prerequisites": [],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "sql-002",
+    "topic": "Common Table Expressions (CTEs) & Recursive Queries",
+    "difficulty": "hard",
+    "estimated_minutes": 25,
+    "tags": ["sql", "cte", "recursion"],
+    "prerequisites": ["sql-001"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  },
+  {
+    "id": "sql-003",
+    "topic": "Composite Indexing & Covering Indexes",
+    "difficulty": "hard",
+    "estimated_minutes": 30,
+    "tags": ["sql", "indexing", "performance"],
+    "prerequisites": ["sql-002"],
+    "revision_schedule": [1, 3, 7, 14, 30]
+  }
+]
